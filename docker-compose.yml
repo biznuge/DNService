@@ -1,0 +1,33 @@
+# version: '3.8'
+# services:
+#   postgres:
+#     image: postgres:15
+#     container_name: postgres-db
+#     restart: always
+#     environment:
+#       POSTGRES_PASSWORD: mysecretpassword
+#     ports:
+#       - '5432:5432'
+#     volumes:
+#       - ./sample_data.csv:/var/lib/postgresql/data/sample_data.csv
+#       - ./run_query.sql:/var/lib/postgresql/data/run_query.sql
+
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      # These two are new - sets up the default database so scripts can run
+      POSTGRES_DB: testdb
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - '5432:5432'
+    volumes:
+      # Map our new setup script to the special init directory
+      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      # We still map our query, so we can run it later if we want
+      - ./run_query.sql:/docker-entrypoint-initdb.d/2-run-query.sql
+      # Map the CSV data to a neutral location like /tmp
+      - ./sample_data.csv:/tmp/sample_data.csv
