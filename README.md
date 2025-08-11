@@ -34,6 +34,12 @@ If you want to simply pump out a file that represents the query results so that 
 
 > docker exec postgres-db psql -U postgres -d testdb --csv -f /docker-entrypoint-initdb.d/2-run-query.sql > results.csv
 
+## Execute Monolith to file output
+
+There's also a script that avoids using CTE's (Common Table Expressions) - This looks bonkers, and would perhaps be tricky to maintain, but could be useful to someone.
+
+> docker exec postgres-db psql -U postgres -d testdb --csv -f /docker-entrypoint-initdb.d/2-run-monolith.sql > results-monolith.csv
+
 ## Cleaning up
 
 To exit the psql shell, simply type:

@@ -29,5 +29,6 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
       # We still map our query, so we can run it later if we want
       - ./run_query.sql:/docker-entrypoint-initdb.d/2-run-query.sql
+      - ./run_monolith.sql:/docker-entrypoint-initdb.d/2-run-monolith.sql
       # Map the CSV data to a neutral location like /tmp
       - ./sample_data.csv:/tmp/sample_data.csv
